@@ -34,8 +34,7 @@ class block_recent_courses extends block_base {
 
     function get_content() {
         global $USER, $CFG, $DB, $OUTPUT, $COURSE;
-		$userid = 3827;
-        //        $userid = $USER->id;
+        $userid = $USER->id;
         if ($this->content !== NULL) {
             return $this->content;
         }
