@@ -1,0 +1,8 @@
+.block_recent_courses .content .list li.listentry {clear:both;}
+.block_recent_courses .content .list li.listentry .user {float:left;position:relative;}
+.block_recent_courses .content .list li.listentry .user .userpicture { vertical-align: text-bottom;}
+.block_recent_courses .content .list li.listentry .message {float:right; margin-top: 3px;}
+.block_recent_courses .content .info {text-align:center;}
+
+.dir-rtl .block_recent_courses .content .list li.listentry .user {float:right;}
+.dir-rtl .block_recent_courses .content .list li.listentry .message {float:left;}
