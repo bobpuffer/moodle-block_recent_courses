@@ -49,18 +49,19 @@ class block_recent_courses extends block_base {
 
         $mycourses = enrol_get_users_courses($userid, true, array('*'), 'sortorder ASC');
         $sortedcourses = array();
-        $sortedcourses = $DB->get_records('user_lastaccess', array('userid' => $userid), null, 'timeaccess, courseid');
+        $sql = "SELECT l.timeaccess, l.courseid, c.fullname FROM {user_lastaccess} l
+                JOIN {course} c on c.id = l.courseid
+                WHERE l.userid = $userid";
+        $sortedcourses = $DB->get_records_sql($sql);
         arsort($sortedcourses);
         $maximum = 8;
         foreach ($sortedcourses as $accessed => $course) {
-//            if (array_key_exists($course->courseid, $mycourses)) {
-                $this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">'
-                        . $mycourses[$course->courseid]->fullname . '</a><br />';
-                $maximum--;
-                if ($maximum < 1) {
-                    break;
-                }
-//             }
+            $this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">'
+                    . $course->fullname . '</a><br />';
+            $maximum--;
+            if ($maximum < 1) {
+                break;
+            }
         }
         return $this->content;
     }
