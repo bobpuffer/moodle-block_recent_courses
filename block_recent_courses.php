@@ -53,14 +53,14 @@ class block_recent_courses extends block_base {
         arsort($sortedcourses);
         $maximum = 8;
         foreach ($sortedcourses as $accessed => $course) {
-            if (array_key_exists($course->courseid, $mycourses)) {
+//            if (array_key_exists($course->courseid, $mycourses)) {
                 $this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">'
                         . $mycourses[$course->courseid]->fullname . '</a><br />';
                 $maximum--;
                 if ($maximum < 1) {
                     break;
                 }
-            }
+//             }
         }
         return $this->content;
     }
