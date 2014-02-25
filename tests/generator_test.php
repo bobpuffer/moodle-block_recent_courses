@@ -43,7 +43,7 @@ class block_recent_courses_generator_testcase extends advanced_testcase {
         $beforeblocks = $DB->count_records('block_instances');
         $beforecontexts = $DB->count_records('context');
 
-        /** @var block_recent_courses_generator $generator */
+        // @var block_recent_courses_generator $generator
         $generator = $this->getDataGenerator()->get_plugin_generator('block_recent_courses');
         $this->assertInstanceOf('block_recent_courses_generator', $generator);
         $this->assertEquals('recent_courses', $generator->get_blockname());

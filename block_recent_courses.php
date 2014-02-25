@@ -24,18 +24,18 @@
  */
 
 class block_recent_courses extends block_base {
-    function init() {
-        $this->title = get_string('pluginname','block_recent_courses');
+    public function init() {
+        $this->title = get_string('pluginname', 'block_recent_courses');
     }
 
-    function has_config() {
+    public function has_config() {
         return true;
     }
 
-    function get_content() {
+    public function get_content() {
         global $USER, $CFG, $DB, $OUTPUT, $COURSE;
         $userid = $USER->id;
-        if ($this->content !== NULL) {
+        if ($this->content !== null) {
             return $this->content;
         }
 
@@ -46,21 +46,22 @@ class block_recent_courses extends block_base {
         if (empty($this->instance)) {
             return $this->content;
         }
-	
-		$mycourses = enrol_get_users_courses($userid, true, array('*'), 'sortorder ASC');
-		$sortedcourses = array();
-		$sortedcourses = $DB->get_records('user_lastaccess', array('userid' => $userid), null, 'timeaccess, courseid');
-		arsort($sortedcourses);
-		$maximum = 8;
-		foreach ($sortedcourses as $accessed => $course) {
-			if (array_key_exists($course->courseid, $mycourses)) {
-				$this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">' . $mycourses[$course->courseid]->fullname . '</a><br />';
-				$maximum--;
-				if ($maximum < 1) {
-					break;
-				}
-			}
-		}
+
+        $mycourses = enrol_get_users_courses($userid, true, array('*'), 'sortorder ASC');
+        $sortedcourses = array();
+        $sortedcourses = $DB->get_records('user_lastaccess', array('userid' => $userid), null, 'timeaccess, courseid');
+        arsort($sortedcourses);
+        $maximum = 8;
+        foreach ($sortedcourses as $accessed => $course) {
+            if (array_key_exists($course->courseid, $mycourses)) {
+                $this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">'
+                        . $mycourses[$course->courseid]->fullname . '</a><br />';
+                $maximum--;
+                if ($maximum < 1) {
+                    break;
+                }
+            }
+        }
         return $this->content;
     }
 }
