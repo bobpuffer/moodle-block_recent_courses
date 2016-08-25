@@ -52,7 +52,7 @@ class block_recent_courses extends block_base {
 		$sortedcourses = $DB->get_records('user_lastaccess', array('userid' => $userid), null, 'timeaccess, courseid');
 		arsort($sortedcourses);
 		$maximum = 8;
-		$this->content->text .=  '<div style="color:#999999;line-height:1.4em;font-weight:bold;font-size:.6em;">' . get_string('needtogotherefirst','block_recent_courses') . '</div>';
+		$this->content->text .=  '<div style="color:#999999;line-height:1.4em;font-weight:bold;font-size:.6em;">' . 'NOTICE: courses will not show up in this area unless you\'ve first visited them through Navigation->My courses' . '</div>';
 		foreach ($sortedcourses as $accessed => $course) {
 			if (array_key_exists($course->courseid, $mycourses)) {
 				$this->content->text .= '<a href="' . $CFG->wwwroot. '/course/view.php?id=' . $course->courseid . '">' . $mycourses[$course->courseid]->fullname . '</a><br />';
